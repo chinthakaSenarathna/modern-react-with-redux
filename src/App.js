@@ -1,23 +1,49 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [count,setCount] = useState(0);
+  const [valueToAdd,setValueToAdd] = useState(0);
+
+  const handleIncrement = () => {
+    setCount(count => count + 1);
+  }
+
+  const handleDecrement = () => {
+    setCount(count => count - 1);
+  }
+
+  const handleChangeValue = (event) => {
+    const value = parseInt(event.target.value) || 0;
+    console.log(value);
+    console.log(typeof(value));
+    setValueToAdd(value);
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    setCount(count + valueToAdd);
+    setValueToAdd(0);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Count is {count}</h1>
+      <div>
+        <button type='button' onClick={handleIncrement}>Increment</button>
+        <button type='button' onClick={handleDecrement}>Decrement</button>
+      </div>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor='value-to-add'>Add a lot!</label>
+        <input 
+          id='value-to-add'
+          type='number'
+          value={valueToAdd || ''}
+          onChange={handleChangeValue}
+        />
+        <button type='submit'>Add it!</button>
+      </form>
     </div>
   );
 }
