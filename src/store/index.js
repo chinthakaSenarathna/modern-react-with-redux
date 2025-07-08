@@ -39,19 +39,21 @@ const store = configureStore({
     }
 });
 
-console.log(store);
+export { store };
 
-const startingState = store.getState();
-console.log(JSON.stringify(startingState));
+// console.log(store);
 
-console.log(songsSlice.actions.addSong());
+// const startingState = store.getState();
+// console.log(JSON.stringify(startingState));
 
-store.dispatch({
-    type: 'song/addSong',
-    payload: 'New Song!!!'
-});
+// console.log(songsSlice.actions.addSong());
 
-store.dispatch(moviesSlice.actions.addMovie("New Movie!!!"));
+// store.dispatch({
+//     type: 'song/addSong',
+//     payload: 'New Song!!!'
+// });
 
-const finalState = store.getState();
-console.log(JSON.stringify(finalState));
+// store.dispatch(moviesSlice.actions.addMovie("New Movie!!!"));
+
+// const finalState = store.getState();
+// console.log(JSON.stringify(finalState));
