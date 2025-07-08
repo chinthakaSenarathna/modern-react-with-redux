@@ -1,8 +1,42 @@
 import { useReducer } from 'react';
 import './App.css';
 
-const reducer = () => {
-  
+const INCREMENT_COUNT = 'increment-count';
+const DECREMENT_COUNT = 'decrement-count';
+const CHANGE_VALUE_TO_ADD = 'change-value-to-add';
+const SUBMIT_VALUE_TO_ADD = 'submit-value-to-add';
+
+const reducer = (state,action) => {
+  if(action.type === INCREMENT_COUNT){
+    return {
+      ...state,
+      count: state.count + 1
+    }
+  }
+
+  if(action.type === DECREMENT_COUNT){
+    return {
+      ...state,
+      count: state.count - 1
+    }
+  }
+
+  if(action.type === CHANGE_VALUE_TO_ADD){
+    return {
+      ...state,
+      valueToAdd: action.payload
+    }
+  }
+
+  if(action.type === SUBMIT_VALUE_TO_ADD){
+    return {
+      ...state,
+      count: state.count + state.valueToAdd,
+      valueToAdd: 0
+    }
+  }
+
+  return state;
 }
 
 function App() {
@@ -14,26 +48,35 @@ function App() {
     valueToAdd: 0
   });
 
+  console.log(state);
+
   const handleIncrement = () => {
-    // setCount(count => count + 1);
+    dispatch({
+      type: INCREMENT_COUNT
+    });
   }
 
   const handleDecrement = () => {
-    // setCount(count => count - 1);
+    dispatch({
+      type: DECREMENT_COUNT
+    });
   }
 
   const handleChangeValue = (event) => {
-    // const value = parseInt(event.target.value) || 0;
-    // console.log(value);
-    // console.log(typeof(value));
-    // setValueToAdd(value);
+    const value = parseInt(event.target.value) || 0;
+    
+    dispatch({
+      type: CHANGE_VALUE_TO_ADD,
+      payload: value
+    });
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // setCount(count + valueToAdd);
-    // setValueToAdd(0);
+    dispatch({
+      type: SUBMIT_VALUE_TO_ADD,
+    });
   }
 
   return (
