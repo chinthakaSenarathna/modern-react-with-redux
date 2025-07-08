@@ -1,3 +1,4 @@
+import { produce } from 'immer';
 import { useReducer } from 'react';
 import './App.css';
 
@@ -7,43 +8,31 @@ const CHANGE_VALUE_TO_ADD = 'change-value-to-add';
 const SUBMIT_VALUE_TO_ADD = 'submit-value-to-add';
 
 const reducer = (state,action) => {
-  if(action.type === INCREMENT_COUNT){
-    return {
-      ...state,
-      count: state.count + 1
-    }
+  switch(action.type){
+    case INCREMENT_COUNT:
+      state.count = state.count + 1;
+      return;
+    case DECREMENT_COUNT:
+      state.count = state.count - 1;
+      return;
+    case CHANGE_VALUE_TO_ADD:
+      state.valueToAdd = action.payload;
+      return;
+    case SUBMIT_VALUE_TO_ADD:
+      state.count = state.count + state.valueToAdd;
+      state.valueToAdd = 0;
+      return;
+    default:
+      return;
   }
-
-  if(action.type === DECREMENT_COUNT){
-    return {
-      ...state,
-      count: state.count - 1
-    }
-  }
-
-  if(action.type === CHANGE_VALUE_TO_ADD){
-    return {
-      ...state,
-      valueToAdd: action.payload
-    }
-  }
-
-  if(action.type === SUBMIT_VALUE_TO_ADD){
-    return {
-      ...state,
-      count: state.count + state.valueToAdd,
-      valueToAdd: 0
-    }
-  }
-
-  return state;
+  
 }
 
 function App() {
   // const [count,setCount] = useState(0);
   // const [valueToAdd,setValueToAdd] = useState(0);
 
-  const [state,dispatch] = useReducer(reducer,{
+  const [state,dispatch] = useReducer(produce(reducer),{
     count: 0,
     valueToAdd: 0
   });
