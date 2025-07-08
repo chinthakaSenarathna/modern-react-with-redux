@@ -44,15 +44,14 @@ console.log(store);
 const startingState = store.getState();
 console.log(JSON.stringify(startingState));
 
+console.log(songsSlice.actions.addSong());
+
 store.dispatch({
     type: 'song/addSong',
     payload: 'New Song!!!'
 });
 
-store.dispatch({
-    type: 'movie/addMovie',
-    payload: 'New Movie!!!' 
-});
+store.dispatch(moviesSlice.actions.addMovie("New Movie!!!"));
 
 const finalState = store.getState();
 console.log(JSON.stringify(finalState));
