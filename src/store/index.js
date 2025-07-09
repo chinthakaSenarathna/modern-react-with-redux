@@ -4,17 +4,12 @@ const songsSlice = createSlice({
     name: 'song',
     initialState: [],
     reducers: {
-        // 'song' + '/' + 'addSong' = 'song/addSong'
         addSong(state,action){
-            // state is not the Big state
-            // in the store
-            // it is the piece of state management
-            // by this reducer
             state.push(action.payload);
         },
-        // 'song' + '/' + 'removeSong' = 'song/removeSong'
         removeSong(state,action){
-            //...
+            const index = state.indexOf(action.payload);
+            state.splice(index,1);
         }
     }
 });
@@ -41,4 +36,4 @@ const store = configureStore({
 
 export { store };
 
-export const { addSong } = songsSlice.actions;
+export const { addSong, removeSong } = songsSlice.actions;
