@@ -15,6 +15,7 @@ function SongPlaylist() {
     const action = addSong(song);
     dispatch(action);
   };
+  
   const handleSongRemove = (song) => {
     const action = removeSong(song);
     dispatch(action);
